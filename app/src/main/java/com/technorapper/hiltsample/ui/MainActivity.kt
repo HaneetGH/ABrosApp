@@ -5,9 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.asLiveData
-import com.technorapper.hiltsample.LaunchDetailsQuery
-import com.technorapper.hiltsample.PostDetailsMutation
 import com.technorapper.hiltsample.R
 import com.technorapper.hiltsample.base.BaseClass
 import com.technorapper.hiltsample.data.model.RequestPost
@@ -27,7 +24,7 @@ class MainActivity : BaseClass(), RecyclerViewClickListener {
     var offset = 1
     lateinit var adapter: DataListAdapter
     lateinit var binding: ActivityMainBinding
-    var list: ArrayList<LaunchDetailsQuery.Post> = ArrayList()
+    var list: ArrayList<RequestPost> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,7 +73,7 @@ class MainActivity : BaseClass(), RecyclerViewClickListener {
         viewModel.dataMutationStateResponse.observe(this, { it ->
             if (it != null) {
                 when (it) {
-                    is DataState.Success<PostDetailsMutation.Insert_posts_one> -> {
+                    is DataState.Success<RequestPost> -> {
                         offset = 1
                         viewModel.setStateEvent(MainStateEvent.ExecutePostQuery(offset))
                         Log.d("DATA  RES", "SUCCESSz");
@@ -96,7 +93,7 @@ class MainActivity : BaseClass(), RecyclerViewClickListener {
             if (it != null) {
 
                 when (it) {
-                    is DataState.Success<List<LaunchDetailsQuery.Post>?> -> {
+                    is DataState.Success<List<RequestPost>?> -> {
                         if (it?.data != null) {
                             if (offset == 1)
                                 list.clear()

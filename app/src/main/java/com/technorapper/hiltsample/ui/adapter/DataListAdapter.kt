@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.technorapper.hiltsample.LaunchDetailsQuery
+
 import com.technorapper.hiltsample.R
+import com.technorapper.hiltsample.data.model.RequestPost
 import com.technorapper.hiltsample.databinding.TextPostCellBinding
 import com.technorapper.hiltsample.databinding.VideoPostCellBinding
 import com.technorapper.hiltsample.utils.RecyclerViewClickListener
 
 class DataListAdapter(
-    private var list: ArrayList<LaunchDetailsQuery.Post>?,
+    private var list: ArrayList<RequestPost>?,
     private var listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<ViewHolder>() {
     var onEndOfListReached: (() -> Unit)? = null

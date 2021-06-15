@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="com.technorapper.hiltsample.LaunchDetailsQuery.Post" />
+            type="com.technorapper.hiltsample.data.model.RequestPost" />
 
     </data>
 

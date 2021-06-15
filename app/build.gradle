@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id("com.apollographql.apollo").version("2.5.8")
 }
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
@@ -39,10 +38,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    apollo {
-        // instruct the compiler to generate Kotlin models
-        generateKotlinModels.set(true)
-    }
+
     dataBinding {
         enabled true
     }
@@ -69,10 +65,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activity_version"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
-    // The core runtime dependencies
-    implementation("com.apollographql.apollo:apollo-runtime:2.5.8")
-    // Coroutines extensions for easier asynchronicity handling
-    implementation("com.apollographql.apollo:apollo-coroutines-support:2.5.8")
+
     def gson = "2.6.0"
     implementation "com.squareup.retrofit2:converter-gson:$gson"
     implementation 'com.google.android.material:material:1.2.1'

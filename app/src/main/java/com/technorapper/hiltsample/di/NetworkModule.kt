@@ -1,8 +1,11 @@
 package com.technorapper.hiltsample.di
 
 import android.content.Context
-import com.apollographql.apollo.ApolloClient
+
 import com.google.gson.Gson
+import com.technorapper.hiltsample.data.SynchronousApi
+import com.technorapper.hiltsample.data.UserPreferences
+import com.technorapper.hiltsample.di.scope.ApplicationScoped
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +15,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -19,14 +24,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Singleton
-    @Provides
-    fun provideApollo(okHttpClient: OkHttpClient): ApolloClient {
-        return ApolloClient.builder()
-            .serverUrl("https://incredible-developer.herokuapp.com/v1/graphql")
-            .okHttpClient(okHttpClient)
-            .build()
-    }
+    const val BASEURL = "https://www.website.com"
+
+
 
     @Provides
     @Singleton
@@ -54,6 +54,22 @@ object NetworkModule {
             }
             .connectTimeout(1200, TimeUnit.SECONDS)
             .build()
+
+    }
+
+    @Provides
+    @Singleton
+    fun provideService(
+        appPrefs: UserPreferences,
+        okHttpClient: OkHttpClient
+    ): SynchronousApi {
+
+
+        return Retrofit.Builder().baseUrl(BASEURL)
+            /* .addConverterFactory(MoshiConverterFactory.create())*/
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build().create(SynchronousApi::class.java)
 
     }
 
